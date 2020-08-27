@@ -2,6 +2,19 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
+
+
+import axios from 'axios';
+
+async function getUser() {
+  try {
+    const response = await axios.get('http://localhost:5000/api/courses');
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  } }
+
 function App() {
   return (
     <div className="App">
@@ -22,5 +35,5 @@ function App() {
     </div>
   );
 }
-
+getUser();
 export default App;
