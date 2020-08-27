@@ -17,7 +17,7 @@ class Courses extends Component {
     }
 
     //function to retrieve courses and store then in an array
-    async getCourses() {
+    getCourses() {
          axios.get('http://localhost:5000/api/courses')
             .then(response => {this.setState({courses: response})})
             .catch(error => console.log('Error fetching and parsing data', error));
