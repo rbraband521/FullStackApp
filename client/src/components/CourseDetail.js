@@ -56,7 +56,8 @@ class CourseDetail extends Component {
             description,
             firstName,
             lastName,
-            emailAddress
+            estimatedTime,
+            materialsNeeded,
             // courseId,
             // user
         } = this.state
@@ -80,6 +81,23 @@ class CourseDetail extends Component {
                     </div>
                     <div className="course--description">
                         {description}
+                    </div>
+                </div>
+                <div className="grid-25 grid-right">
+                    <div className="course--stats">
+                        <ul className="course--stats--list">
+                            <li className="course--stats--list--item">
+                                <h4>Estimated Time</h4>
+                                <h3>{estimatedTime}</h3>
+                            </li>
+                            <li className="course--stats--list--item">
+                                <h4>Materials Needed</h4>
+                                <ul>
+                                {/**TODO markdown for list */}
+                                    <li>{materialsNeeded}</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
