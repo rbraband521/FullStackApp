@@ -96,32 +96,41 @@ export default class UserSignUp extends Component {
         firstName,
         lastName,
         emailAddress,
-        password
+        password,
+        confirmPassword
     } = this.state;
     // New user payload
     const user = {
         firstName,
         lastName,
         emailAddress,
-        password
+        password,
+        confirmPassword
     };
+    if(confirmPassword === password) {
     context.data.createUser(user)
       .then( errors => {
+        console.log(errors);
         if (errors.length) {
           this.setState({ errors });
         } else {
           context.actions.signIn(emailAddress, password)
             .then(() => {
-              this.props.history.push('/authenticated');    
+              // this.props.history.push('/authenticated');
+              console.log(`${emailAddress} is signed up`);    
             });
         }
       })
       .catch( err => { // handle rejected promises
         console.log(err);
         this.props.history.push('/error'); // push to history stack
-
-  });
-  }
+        });
+      } else {
+        this.setState({
+          errors: "Passwords do not match"
+        })
+      }
+    }
   cancel = () => {
     this.props.history.push('/');
 
