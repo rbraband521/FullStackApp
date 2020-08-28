@@ -6,8 +6,11 @@ import {
   Route, } from 'react-router-dom';
 import './App.css';
 
+
 //componenet import
 import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
+
 
 
 class App extends Component {
@@ -17,7 +20,8 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route path= '/' render={ () => <Courses />} />
+            <Route exact path= '/' render={ () => <Courses />} />
+            <Route path= '/courses/:id' render={ () => <CourseDetail />} />
           </Switch>
         </div>
       </BrowserRouter>
