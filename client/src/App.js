@@ -7,7 +7,7 @@ import {
 import './App.css';
 
 //componenet import
-import Courses from './Courses';
+import Courses from './components/Courses';
 
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route path= '/Courses' render={ () => <Courses />} />
+            <Route path= '/' render={ () => <Courses />} />
           </Switch>
         </div>
       </BrowserRouter>

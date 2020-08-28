@@ -17,11 +17,10 @@ class Courses extends Component {
     }
 
     //function to retrieve courses and store then in an array
-    async getCourses() {
+    getCourses() {
          axios.get('http://localhost:5000/api/courses')
-            .then(response => {this.setState({courses: response})})
+            .then(response => {this.setState({courses: response.data})})
             .catch(error => console.log('Error fetching and parsing data', error));
-            console.log(this.state.courses);
             }
 
             
@@ -42,10 +41,6 @@ class Courses extends Component {
             </div>
         );
     }
-        
-
-
-    // render() {
         return (
             <div className="bounds">
                 {courses}
