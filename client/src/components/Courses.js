@@ -9,9 +9,12 @@ import axios from 'axios';
 
 
 class Courses extends Component {
-        state = {
-            courses: []
-        };
+    constructor(props) {
+        super(props);
+            this.state = {
+                courses: []
+            };
+        }
 
     //function to retrieve courses and store then in an array
     getCourses() {
@@ -22,8 +25,7 @@ class Courses extends Component {
 
             
     componentDidMount() {
-        const { context} = this.props;
-        context.data.getCourses();
+        this.getCourses();
     }
 
     render() {
