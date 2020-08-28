@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import '../styles/global.css';
 import { 
   Switch,
   BrowserRouter,
@@ -8,13 +7,18 @@ import './App.css';
 
 
 //componenet import
+import withContext from './Context';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
 import UserSignIn from './components/UserSignIn';
-import withContext from './Context';
+import UserSignUp from './components/UserSignUp';
 
 
 const UserSignInWithContext = withContext(UserSignIn);
+const UserSignUpWithContext = withContext(UserSignUp);
+const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
+
 
 
 class App extends Component {
@@ -24,9 +28,10 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path= '/' component={Courses} />
-            <Route path= '/courses/:id' component={CourseDetail} />
+            <Route exact path= '/' component={CoursesWithContext} />
+            <Route path= '/courses/:id' component={CourseDetailWithContext} />
             <Route path="/signin" component={UserSignInWithContext} />
+            <Route path="/signup" component={UserSignUpWithContext} />
           </Switch>
         </div>
       </BrowserRouter>

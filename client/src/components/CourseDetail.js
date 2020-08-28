@@ -12,9 +12,7 @@ import { withRouter } from 'react-router-dom';
 
 
 class CourseDetail extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+        state = {
             title: '',
             description: '',
             estimatedTime: '',
@@ -23,7 +21,6 @@ class CourseDetail extends Component {
             lastName: '',
             courseId: ''
         };
-    }
 
     //function to retrieve courses and store then in an array
     getCourseId() {
@@ -46,7 +43,8 @@ class CourseDetail extends Component {
 
             
     componentDidMount() {
-        this.getCourseId();
+        const { context } = this.props;
+        context.data.getCourseId();
     }
 
     render() {
