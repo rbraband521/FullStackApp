@@ -6,7 +6,7 @@ export default class UserSignUp extends Component {
   state = {
     firstName: '',
     lastName: '',
-    emailAddress: undefined,
+    emailAddress: '',
     password: '',
     confirmPassword: '',
     errors: [],
@@ -49,7 +49,7 @@ export default class UserSignUp extends Component {
                   placeholder="Last Name" />
                 <input 
                   id="emailAddress" 
-                  name="emailAdress" 
+                  name="emailAddress" 
                   type="text"
                   value={emailAddress} 
                   onChange={this.change} 
@@ -118,7 +118,7 @@ export default class UserSignUp extends Component {
             .then(() => {
               // this.props.history.push('/authenticated');
               console.log(`${emailAddress} is signed up`); 
-              this.props.history.push('/signing');   
+              this.props.history.push('/signin');   
             });
         }
       })
