@@ -6,7 +6,7 @@ export default class UserSignUp extends Component {
   state = {
     firstName: '',
     lastName: '',
-    emailAddres: '',
+    emailAddress: undefined,
     password: '',
     confirmPassword: '',
     errors: [],
@@ -117,7 +117,8 @@ export default class UserSignUp extends Component {
           context.actions.signIn(emailAddress, password)
             .then(() => {
               // this.props.history.push('/authenticated');
-              console.log(`${emailAddress} is signed up`);    
+              console.log(`${emailAddress} is signed up`); 
+              this.props.history.push('/signing');   
             });
         }
       })
