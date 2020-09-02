@@ -7,14 +7,12 @@
 
 
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-
 
 class CourseDetail extends Component {
-    constructor(props) {
-        super(props);    
-            this.state = {
+    // constructor(props) {
+    //     super(props);    
+    //         this.
+            state = {
                 title: '',
                 description: '',
                 estimatedTime: '',
@@ -23,31 +21,49 @@ class CourseDetail extends Component {
                 lastName: '',
                 courseId: ''
             };
-        }
+        // }
 
     //function to retrieve courses and store then in an array
-    getCourseId() {
-        let { id }  = this.props.match.params;
-        console.log(id);
-         axios.get(`http://localhost:5000/api/courses/${id}`)
-            .then(response => {this.setState({
-                title: response.data.title,
-                description: response.data.description,
-                estimatedTime: response.data.estimatedTime,
-                materialsNeeded: response.data.materialsNeeded,
-                firstName: response.data.user.firstName,
-                lastName: response.data.user.lastName,
-                emailAddress: response.data.user.emailAddress,
-                courseId: id
-            })})
-            .catch(error => console.log('Error fetching and parsing data', error));
-            }
+    // getCourseId() {
+    //     let { id }  = this.props.match.params;
+    //     console.log(id);
+    //      axios.get(`http://localhost:5000/api/courses/${id}`)
+    //         .then(response => {this.setState({
+    //             title: response.data.title,
+    //             description: response.data.description,
+    //             estimatedTime: response.data.estimatedTime,
+    //             materialsNeeded: response.data.materialsNeeded,
+    //             firstName: response.data.user.firstName,
+    //             lastName: response.data.user.lastName,
+    //             emailAddress: response.data.user.emailAddress,
+    //             courseId: id
+    //         })})
+    //         .catch(error => console.log('Error fetching and parsing data', error));
+    //         }
             
 
             
-    componentDidMount() {
-        this.getCourseId();
-    }
+    // componentDidMount() {
+    //     this.getCourseId();
+    // }
+    async componentDidMount() {
+        const { context } = this.props;
+        let { id }  = this.props.match.params;
+        context.data.getCourseId(id)
+            .then(response => {
+                this.setState({
+                    title: response.title,
+                    description: response.description,
+                    estimatedTime: response.estimatedTime,
+                    materialsNeeded: response.materialsNeeded,
+                    firstName: response.user.firstName,
+                    lastName: response.user.lastName,
+                    emailAddress: response.user.emailAddress,
+                    courseId: id
+                }
+            )})
+            .catch(error => console.log('Error fetching and parsing data', error));
+            }
 
     render() {
         console.log(this.state);
@@ -105,5 +121,6 @@ class CourseDetail extends Component {
         )
     }
 }
+export default CourseDetail;
 
-export default withRouter(CourseDetail);
+// export default withRouter(CourseDetail);

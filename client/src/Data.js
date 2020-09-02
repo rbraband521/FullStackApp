@@ -46,10 +46,36 @@ export default class Data {
     else if (response.status === 400) {
       return response.json().then(data => {
         console.log(data);
-        return data.message;
+        return data.errors;
       });
     }
     else {
+      throw new Error();
+    }
+  }
+
+
+  //function to retrieve courses and store then in an array
+  async getCourses() {
+    const response = await this.api('/courses', 'GET')
+    if(response.status === 200) {
+      console.log(response);
+      return response.json().then(data => data)
+    } else if (response.status === 404) {
+      return null;
+    } else {
+      throw new Error();
+    }
+  }
+
+  async getCourseId(id) {
+    const response = await this.api(`/courses/${id}`, 'GET')
+    if(response.status === 200) {
+      console.log(response);
+      return response.json().then(data => data)
+    } else if (response.status === 404) {
+      return null;
+    } else {
       throw new Error();
     }
   }

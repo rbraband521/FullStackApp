@@ -13,7 +13,7 @@ function asyncHandler(cb) {
         try{
             await cb(req, res, next)
         } catch(error){
-            next(error);
+            return next(error);
           }
     }
 }
@@ -84,8 +84,8 @@ router.post('/users', [
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(400).json({ message: errorMessages });
-            }
+            return res.status(400).json({ errors: errorMessages });
+            } else {
         try{
             let user;
             user = await User.create( {
@@ -99,12 +99,14 @@ router.post('/users', [
             }catch(error) {
                 if (error.name === 'SequelizeUniqueConstraintError') {
                   const errors = error.errors.map(err => err.message);
-                  res.status(400).json({ message: "Sorry, this email has an existing account"});
+                  res.status(400).json(errors);
+                //   ({ errors: "Sorry, this email has an existing account"});
                 } else {
                   throw error;
                 }
             }
         }
+    }
 ));
 
 /*****COURSE ROUTES*****/
