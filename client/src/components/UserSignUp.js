@@ -92,6 +92,8 @@ export default class UserSignUp extends Component {
   submit = () => {
     const { context } = this.props;
 
+
+
     const {
         firstName,
         lastName,
@@ -104,32 +106,31 @@ export default class UserSignUp extends Component {
         firstName,
         lastName,
         emailAddress,
-        password,
-        confirmPassword
+        password
     };
+    console.log(confirmPassword);
     if(confirmPassword === password) {
-    context.data.createUser(user)
-      .then( errors => {
-        if (errors.length) {
-          this.setState({ errors });
-          console.log(this.state.errors);
-        } else {
-          context.actions.signIn(emailAddress, password)
-            .then(() => {
-              // this.props.history.push('/authenticated');
-              console.log(`${emailAddress} is signed up`); 
-              this.props.history.push('/signin');   
-            });
-        }
-      })
-      .catch( err => { // handle rejected promises
-        console.log(err);
-        this.props.history.push('/error'); // push to history stack
-        });
-      } else {
-        this.setState({
-          errors: "Passwords do not match"
+      context.data.createUser(user)
+        .then( errors => {
+          console.log(errors);
+          if (errors.length) {
+            this.setState({ errors });
+          } else {
+            context.actions.signIn(emailAddress, password)
+              .then(() => {
+                // this.props.history.push('/authenticated');
+                console.log(`${emailAddress} is signed up`); 
+                this.props.history.push('/signin');   
+              });
+          } 
         })
+        .catch( err => { // handle rejected promises
+          console.log(err);
+          this.props.history.push('/error'); // push to history stack
+          });
+      } else {
+        console.log("test");
+        this.setState({errors: "Sorry, your passwords do not match"});
       }
     }
   cancel = () => {

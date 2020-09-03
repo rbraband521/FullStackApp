@@ -9,7 +9,7 @@ export class Provider extends Component {
 
   state = {
     authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
-    password: Cookies.getJSON('password') || null
+    password: Cookies.getJSON('password') || null,
   };
 
   constructor() {
@@ -19,6 +19,7 @@ export class Provider extends Component {
 
   render() {
     const { authenticatedUser, password } = this.state;
+    console.log(this.state);
     const value = {
       authenticatedUser,
       password,

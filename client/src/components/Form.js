@@ -36,7 +36,7 @@ export default (props) => {
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
 
-  if (errors.length) {
+  if (errors.length && typeof errors !== 'string') {
     errorsDisplay = (
       <div>
         <h2 className="validation--errors--label">Validation errors</h2>
@@ -47,7 +47,19 @@ function ErrorsDisplay({ errors }) {
         </div>
       </div>
     );
-  }
+  } else if(errors.length && typeof errors === 'string') {
+    errorsDisplay = (
+        <div>
+            <h2 className="validation--errors--label">Validation errors</h2>
+            <div className="validation-errors">
+                <ul>
+                    <li key={1}>{errors}</li>
+                </ul>
+            </div>
+        </div>
+    );  
+}
+
 
   return errorsDisplay;
 }

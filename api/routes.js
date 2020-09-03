@@ -13,7 +13,7 @@ function asyncHandler(cb) {
         try{
             await cb(req, res, next)
         } catch(error){
-            return next(error);
+            return next();
           }
     }
 }
@@ -69,18 +69,18 @@ router.get('/users', authenticateUser, (req, res) => {
 /***** Creates a user, sets Location header to '/' and returns no content STATUS: 201 *****/
 router.post('/users', [
     check('firstName')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "firstName"'),
     check('lastName')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "lastName"'),
     check('emailAddress')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "emailAddress"'),
     check('password')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "password"'),
-    ], (async (req, res) => {
+    ], asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
@@ -99,7 +99,7 @@ router.post('/users', [
             }catch(error) {
                 if (error.name === 'SequelizeUniqueConstraintError') {
                   const errors = error.errors.map(err => err.message);
-                  res.status(400).json(errors);
+                  res.status(400).json({errors});
                 //   ({ errors: "Sorry, this email has an existing account"});
                 } else {
                   throw error;
