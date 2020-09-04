@@ -120,7 +120,7 @@ export default class UserSignUp extends Component {
               .then(() => {
                 // this.props.history.push('/authenticated');
                 console.log(`${emailAddress} is signed up`); 
-                this.props.history.push('/signin');   
+                this.props.history.push('/courses');   
               });
           } 
         })

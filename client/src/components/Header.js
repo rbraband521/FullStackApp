@@ -6,7 +6,6 @@ export default ({ context }) => {
 
     // const { context } = this.props;
     const authUser = context.authenticatedUser;
-    console.log(authUser.Name);
     return (
       <div className="header">
         <div className="bounds">
