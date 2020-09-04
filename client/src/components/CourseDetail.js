@@ -74,7 +74,7 @@ class CourseDetail extends Component {
             lastName,
             estimatedTime,
             materialsNeeded,
-            // courseId,
+            courseId,
             // user
         } = this.state
     return (
@@ -82,7 +82,7 @@ class CourseDetail extends Component {
             <div className="actions--bar">
                 <div className="bounds">
                     <div className="grid-100"><span>
-                    <a className="button" href="update-course.html">Update Course</a>
+                    <a className="button" href={`/courses/${courseId}/update`}>Update Course</a>
                         <a className="button" href="/">Delete Course</a></span>
                         <a className="button button-secondary" href="/">Return to List</a>
                     </div>

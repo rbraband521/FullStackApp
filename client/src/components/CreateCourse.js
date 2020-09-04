@@ -143,4 +143,8 @@ export default class CreateCourse extends Component {
             errors
         } = this.state;
     }
+    cancel = () => {
+        this.props.history.push('/');
+    
+      }
 }
