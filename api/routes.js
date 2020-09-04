@@ -24,7 +24,7 @@ const authenticateUser = async (req, res, next) => {
         const credentials = auth(req);
         if (credentials) {
             //finds all the users' id, emailAdress and password
-            const allUsers = await User.findAll({ attributes: ['id','emailAddress', 'password']});
+            const allUsers = await User.findAll();
             //matching the user to allUsers
             const user = allUsers.find( u => u.emailAddress === credentials.name);
             //if a user is matched, compare the hashed passwords
@@ -57,12 +57,12 @@ const authenticateUser = async (req, res, next) => {
 
 /*****USER ROUTES******/
 /*****Returns the currently authenticated user STATUS: 200 *****/
-router.get('/users', authenticateUser, (req, res) => {
-    const user = req.currentUser;
+router.get('/users', authenticateUser, async (req, res) => {
+    const user = await req.currentUser;
 
     res.json({
       Username: user.emailAddress,
-    //   password: user.password,
+      Name: `${user.firstName} ${user.lastName}`
     });
 });
 

@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default class Header extends React.PureComponent {
-  render() {
-    const { context } = this.props;
+export default ({ context }) => {
+
+    // const { context } = this.props;
     const authUser = context.authenticatedUser;
-    console.log(authUser);
+    console.log(authUser.Name);
     return (
       <div className="header">
         <div className="bounds">
@@ -14,7 +14,7 @@ export default class Header extends React.PureComponent {
           <nav>
             {authUser ?
               <React.Fragment>
-                <span>Welcome, {authUser.name}!</span>
+                <span>Welcome, {authUser.Name}!</span>
                 <Link to="/signout">Sign Out</Link>
               </React.Fragment>
             :
@@ -27,5 +27,4 @@ export default class Header extends React.PureComponent {
         </div>
       </div>
     );
-  }
 };

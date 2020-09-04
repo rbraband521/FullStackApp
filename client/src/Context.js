@@ -9,7 +9,7 @@ export class Provider extends Component {
 
   state = {
     authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
-    password: Cookies.getJSON('password') || null,
+    password: Cookies.getJSON('password') || null
   };
 
   constructor() {
@@ -42,7 +42,8 @@ export class Provider extends Component {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
       user.password = password;
-      user.emailAddress = user.Email;
+      user.emailAddress = user.Username;
+      console.log(user);
       this.setState(() => {
         return {
           authenticatedUser: user,

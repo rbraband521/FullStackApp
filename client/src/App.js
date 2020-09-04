@@ -27,6 +27,7 @@ export default () => (
   <BrowserRouter>
     <div>
       <HeaderWithContext />
+      
       <Switch>
         <Route exact path= '/' render={ () => <Redirect to ='/courses' />} />
         <Route exact path= '/courses' component={CoursesWithContext} />
