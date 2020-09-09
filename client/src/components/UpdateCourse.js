@@ -22,10 +22,13 @@ export default class UpdateCourse extends Component {
         userId: '',
         firstName: '',
         lastName: '',
+        courseId: '',
         errors: []
     }
     async componentDidMount() {
         const { context } = this.props;
+        const authUser =  this.props.context.authenticatedUser;
+        console.log(authUser);
         let { id }  = this.props.match.params;
         console.log(id);
         context.data.getCourseId(id)
@@ -43,16 +46,6 @@ export default class UpdateCourse extends Component {
             )})
             .catch(error => console.log('Error fetching and parsing data', error));
             }
-    // async componentDidMount() {
-    //     const { context } = this.props;
-    //         this.setState(() => {
-    //             return {
-    //                 userId: context.authenticatedUser.id,
-    //                 name: context.authenticatedUser.Name
-    //             }
-    //         })
-    //     }
-
 
     render() {
         const {
@@ -160,12 +153,36 @@ export default class UpdateCourse extends Component {
             estimatedTime,
             materialsNeeded,
             userId,
+            courseId,
             name,
             errors
         } = this.state;
+        //New course payload
+        const course = {
+            title,
+            description,
+            estimatedTime,
+            materialsNeeded,
+            userId
+        };
+
+        context.data.updateCourse(courseId)
+        .then( errors => {
+          console.log(errors);
+          if (errors.length) {
+            this.setState({ errors });
+          } else {
+            this.props.history.push(`/courses/${courseId}`);
+          }
+
+    
+        })
     }
+
     cancel = () => {
-        this.props.history.push('/');
+        const currCourseId = this.state.courseId;
+        this.props.history.push(currCourseId);
     
       }
+    
 }

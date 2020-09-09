@@ -108,7 +108,6 @@ export default class UserSignUp extends Component {
         emailAddress,
         password
     };
-    console.log(confirmPassword);
     if(confirmPassword === password) {
       context.data.createUser(user)
         .then( errors => {
