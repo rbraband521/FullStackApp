@@ -61,8 +61,9 @@ router.get('/users', authenticateUser, async (req, res) => {
     const user = await req.currentUser;
 
     res.json({
-      Username: user.emailAddress,
-      Name: `${user.firstName} ${user.lastName}`
+        Id: user.id,
+        Username: user.emailAddress,
+        Name: `${user.firstName} ${user.lastName}`
     });
 });
 

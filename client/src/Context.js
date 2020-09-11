@@ -18,11 +18,12 @@ export class Provider extends Component {
   }
 
   render() {
-    const { authenticatedUser, password } = this.state;
+    const { authenticatedUser, password, id } = this.state;
     console.log(this.state);
     const value = {
       authenticatedUser,
       password,
+      id,
       data: this.data,
       actions: { // Add the 'actions' property and object
       signIn: this.signIn,
@@ -52,6 +53,7 @@ export class Provider extends Component {
       // Set cookie
       Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
     }
+    console.log(user);
     return user;
   }
 

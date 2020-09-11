@@ -17,9 +17,10 @@ class CourseDetail extends Component {
                 description: '',
                 estimatedTime: '',
                 materialsNeeed: '',
-                firstName: '',
-                lastName: '',
-                courseId: ''
+                // firstName: '',
+                // lastName: '',
+                courseId: '',
+                user: ''
             };
         // }
 
@@ -56,25 +57,26 @@ class CourseDetail extends Component {
                     description: response.description,
                     estimatedTime: response.estimatedTime,
                     materialsNeeded: response.materialsNeeded,
-                    firstName: response.user.firstName,
-                    lastName: response.user.lastName,
+                    // firstName: response.user.firstName,
+                    // lastName: response.user.lastName,
                     emailAddress: response.user.emailAddress,
-                    courseId: id
+                    courseId: id,
+                    user: response.user,
                 }
             )})
             .catch(error => console.log('Error fetching and parsing data', error));
             }
 
     render() {
-        console.log(this.state);
         const {
             title,
             description,
-            firstName,
-            lastName,
+            // firstName,
+            // lastName,
             estimatedTime,
             materialsNeeded,
             courseId,
+            user
             // user
         } = this.state
     return (
@@ -93,7 +95,7 @@ class CourseDetail extends Component {
                     <div className="course--header">
                         <h4 className="course--label">Course</h4>
                         <h3 className="course--title">{title}</h3>
-                        <p>By: {firstName} {lastName}</p>
+                        <p>By: {user.firstName} {user.lastName}</p>
                     </div>
                     <div className="course--description">
                         {description}

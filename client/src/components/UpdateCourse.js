@@ -20,30 +20,41 @@ export default class UpdateCourse extends Component {
         estimatedTime: '',
         materialsNeeded: '',
         userId: '',
-        firstName: '',
-        lastName: '',
+        user: '',
+        // firstName: '',
+        // lastName: '',
         courseId: '',
         errors: []
     }
     async componentDidMount() {
         const { context } = this.props;
         const authUser =  this.props.context.authenticatedUser;
-        console.log(authUser);
+        console.log(authUser.Id);
         let { id }  = this.props.match.params;
-        console.log(id);
         context.data.getCourseId(id)
             .then(response => {
+                if (response) {
                 this.setState({
                     title: response.title,
                     description: response.description,
                     estimatedTime: response.estimatedTime,
                     materialsNeeded: response.materialsNeeded,
-                    firstName: response.user.firstName,
-                    lastName: response.user.lastName,
+                    user: response.user,
+                    userId: response.userId,
+                    // firstName: response.user.firstName,
+                    // lastName: response.user.lastName,
                     emailAddress: response.user.emailAddress,
                     courseId: id
-                }
-            )})
+                })
+            }
+            console.log(this.state.user.id);
+            if(!authUser || authUser.Id !== this.state.user.id){
+                this.props.history.push('/forbidden');
+            }
+            if (!response) {
+                this.props.history.push('/notfound');
+            }
+        })
             .catch(error => console.log('Error fetching and parsing data', error));
             }
 
@@ -53,8 +64,7 @@ export default class UpdateCourse extends Component {
             description,
             estimatedTime,
             materialsNeeded,
-            firstName,
-            lastName,
+            user,
             errors
         } = this.state;
         return (
@@ -71,7 +81,7 @@ export default class UpdateCourse extends Component {
                                     <div className="grid-66">
                                         <div className="course-header">
                                         <h4 className="course--label">Course</h4>
-                                        <p>By: {`${firstName} ${lastName}`}</p>
+                                        <p>By: {`${user.firstName} ${user.lastName}`}</p>
                                         <input
                                             id="title"
                                             name="title"
@@ -144,7 +154,7 @@ export default class UpdateCourse extends Component {
     
       submit = () => {
         const { context } = this.props;
-    
+        const { emailAddress, password } = context.authenticatedUser;
     
     
         const {
@@ -152,10 +162,8 @@ export default class UpdateCourse extends Component {
             description,
             estimatedTime,
             materialsNeeded,
-            userId,
-            courseId,
-            name,
-            errors
+            user,
+            courseId
         } = this.state;
         //New course payload
         const course = {
@@ -163,19 +171,25 @@ export default class UpdateCourse extends Component {
             description,
             estimatedTime,
             materialsNeeded,
-            userId
+            user
         };
 
-        context.data.updateCourse(courseId)
+        context.data.updateCourse(courseId, course, emailAddress, password)
         .then( errors => {
-          console.log(errors);
-          if (errors.length) {
+          console.log('hello');
+          if (errors.length > 0) {
             this.setState({ errors });
-          } else {
+          } else if (errors.length === 0) {
             this.props.history.push(`/courses/${courseId}`);
+          } else {
+              this.props.history.push('/notfound');
           }
-
+          
     
+        })
+        .catch(err=> {
+            console.log(err);
+            this.props.history.push('/signup');
         })
     }
 

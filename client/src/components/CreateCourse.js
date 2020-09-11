@@ -27,7 +27,7 @@ export default class CreateCourse extends Component {
         const { context } = this.props;
             this.setState(() => {
                 return {
-                    userId: context.authenticatedUser.id,
+                    userId: context.authenticatedUser.Id,
                     name: context.authenticatedUser.Name
                 }
             })
@@ -130,19 +130,42 @@ export default class CreateCourse extends Component {
     
       submit = () => {
         const { context } = this.props;
-    
-    
-    
+        const { emailAddress, password } = context.authenticatedUser;
         const {
             title,
             description,
             estimatedTime,
             materialsNeeded,
             userId,
-            name,
-            errors
         } = this.state;
+    
+        //New course payload
+        const course = {
+            title,
+            description,
+            estimatedTime,
+            materialsNeeded,
+            userId
+        };
+
+        context.data.createCourse(course, emailAddress, password)
+        .then( errors => {
+          console.log(errors);
+          if (errors.length > 0) {
+            this.setState({ errors });
+          } else {
+            this.props.history.push('/');
+          }
+
+    
+        })
+        .catch(err => {
+            console.log(err);
+            this.props.history.push('/');
+        })
     }
+
+
     cancel = () => {
         this.props.history.push('/');
     
