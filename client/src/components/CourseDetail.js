@@ -8,6 +8,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+const ReactMarkdown = require('react-markdown');
 
 export default class CourseDetail extends Component {
     constructor(props) {
@@ -136,12 +137,9 @@ export default class CourseDetail extends Component {
                                 </li>
                                 <li className="course--stats--list--item">
                                     <h4>Materials Needed</h4>
-                                    <ul>
-                                    {/**TODO markdown for list */}
-                                        <li>
-                                            {materialsNeeded}
-                                        </li>
-                                    </ul>
+                                    {/* <ul> */}
+                                        <ReactMarkdown source={materialsNeeded} />
+                                    {/* </ul> */}
                                 </li>
                             </ul>
                         </div>
