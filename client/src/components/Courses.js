@@ -5,27 +5,38 @@
  *  This component also renders a link to the "Create Course" screen. */
 
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 
 class Courses extends Component {
-    constructor(props) {
-        super(props);
-            this.state = {
+    // constructor(props) {
+    //     super(props);
+    //         this.
+            state = {
                 courses: []
             };
-        }
+        // }
 
-    //function to retrieve courses and store then in an array
-    getCourses() {
-         axios.get('http://localhost:5000/api/courses')
-            .then(response => {this.setState({courses: response.data})})
-            .catch(error => console.log('Error fetching and parsing data', error));
-            }
+    // function to retrieve courses and store then in an array
+    // getCourses() {
+    //      axios.get('http://localhost:5000/api/courses')
+    //         .then(response => {this.setState({courses: response.data})})
+    //         .catch(error => console.log('Error fetching and parsing data', error));
+    //         }
 
             
-    componentDidMount() {
-        this.getCourses();
+    // componentDidMount() {
+    //     this.getCourses();
+    // }
+
+    async componentDidMount() {
+        const { context } = this.props;
+        console.log(context);
+        context.data.getCourses().then(response => {
+            this.setState({courses: response})
+            console.log(response);
+        }) 
+        .catch((error => console.log('Error fetching and parsing data', error)));
     }
 
     render() {

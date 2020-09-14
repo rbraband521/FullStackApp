@@ -202,18 +202,18 @@ svg {
 /* line 5, ../sass/global.sass */
 body {
   font-family: "Work Sans", sans-serif;
-  background: #fff;
+  background: rgb(210, 240, 240);
 }
 
 /* line 13, ../sass/global.sass */
 .header {
-  background: #57496e;
+  background: #3c74ee;
   padding: 20px 0;
   margin-bottom: 30px;
 }
 /* line 17, ../sass/global.sass */
 .header--logo {
-  color: #fff;
+  color: rgb(253, 253, 252);
   font-size: 24px;
   padding: 0 15px;
   margin: 0;
@@ -225,7 +225,7 @@ body {
 }
 /* line 25, ../sass/global.sass */
 .header--logo a:hover {
-  color: #fff;
+  color: rgb(248, 246, 246);
 }
 /* line 27, ../sass/global.sass */
 .header--logo .selected {
@@ -250,13 +250,13 @@ body {
 }
 /* line 40, ../sass/global.sass */
 .header nav a:hover {
-  color: #fff;
+  color: rgb(10, 10, 10);
 }
 
 /* line 44, ../sass/global.sass */
 .actions--bar {
-  border-bottom: 1px solid #d5f9fe;
-  background: #f8feff;
+  border-bottom: 1px solid #5231ca;
+  background: rgb(210, 240, 240);
   padding: 20px 0;
   margin-top: -30px;
 }
@@ -339,7 +339,7 @@ p {
 
 /* line 102, ../sass/global.sass */
 .course--module {
-  background: #7c689b;
+  background: #7bac7e;
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 30px;
@@ -368,7 +368,7 @@ p {
   font-family: "Cousine";
   font-size: 14px;
   font-weight: 100;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(58, 37, 37, 0.5);
   margin-bottom: 10px;
   font-weight: normal;
 }
@@ -386,7 +386,7 @@ p {
 }
 /* line 133, ../sass/global.sass */
 .course--add--module {
-  background: #eee;
+  background: rgb(157, 165, 158);
   text-align: center;
 }
 /* line 137, ../sass/global.sass */
@@ -399,7 +399,7 @@ p {
 }
 /* line 141, ../sass/global.sass */
 .course--add--title {
-  color: #999;
+  color: rgb(109, 98, 98);
   display: inline-block;
   font-size: 18px;
   position: absolute;
@@ -415,7 +415,7 @@ p {
   width: 13px;
   height: auto;
   margin: 0 5px 0 0;
-  fill: #999;
+  fill: rgb(109, 98, 98);
 }
 /* line 159, ../sass/global.sass */
 .course--detail {
@@ -590,7 +590,7 @@ textarea {
   width: 100%;
   min-height: 300px;
   border-radius: 8px;
-  background: #fff;
+  background: rgb(249, 250, 250);
   padding: 15px;
   font-size: 16px;
   margin: 0 0 20px;
@@ -630,6 +630,7 @@ textarea:focus {
 input {
   width: 100%;
   color: #332a40;
+  background-color: rgb(249, 250, 250);
   border-radius: 8px;
   border: 1px solid #ccc4d8;
   padding: 15px;

@@ -13,7 +13,7 @@ function asyncHandler(cb) {
         try{
             await cb(req, res, next)
         } catch(error){
-            next(error);
+            return next();
           }
     }
 }
@@ -24,7 +24,7 @@ const authenticateUser = async (req, res, next) => {
         const credentials = auth(req);
         if (credentials) {
             //finds all the users' id, emailAdress and password
-            const allUsers = await User.findAll({ attributes: ['id','emailAddress', 'password']});
+            const allUsers = await User.findAll();
             //matching the user to allUsers
             const user = allUsers.find( u => u.emailAddress === credentials.name);
             //if a user is matched, compare the hashed passwords
@@ -57,35 +57,36 @@ const authenticateUser = async (req, res, next) => {
 
 /*****USER ROUTES******/
 /*****Returns the currently authenticated user STATUS: 200 *****/
-router.get('/users', authenticateUser, (req, res) => {
-    const user = req.currentUser;
+router.get('/users', authenticateUser, async (req, res) => {
+    const user = await req.currentUser;
 
     res.json({
-      Username: user.emailAddress,
-    //   password: user.password,
+        Id: user.id,
+        Username: user.emailAddress,
+        Name: `${user.firstName} ${user.lastName}`
     });
 });
 
 /***** Creates a user, sets Location header to '/' and returns no content STATUS: 201 *****/
 router.post('/users', [
     check('firstName')
-        .exists()
-        .withMessage('Please provide a value for "firstName"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "First Name"'),
     check('lastName')
-        .exists()
-        .withMessage('Please provide a value for "lastName"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "Last Name"'),
     check('emailAddress')
-        .exists()
-        .withMessage('Please provide a value for "emailAddress"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "Email Address"'),
     check('password')
-        .exists()
-        .withMessage('Please provide a value for "password"'),
-    ], (async (req, res) => {
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "Password"'),
+    ], asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMessages = errors.array().map(error => error.msg);
-            return res.status(400).json({ message: errorMessages });
-            }
+            return res.status(400).json({ errors: errorMessages });
+            } else {
         try{
             let user;
             user = await User.create( {
@@ -99,12 +100,14 @@ router.post('/users', [
             }catch(error) {
                 if (error.name === 'SequelizeUniqueConstraintError') {
                   const errors = error.errors.map(err => err.message);
-                  res.status(400).json({ message: "Sorry, this email has an existing account"});
+                  res.status(400).json({errors});
+                //   ({ errors: "Sorry, this email has an existing account"});
                 } else {
                   throw error;
                 }
             }
         }
+    }
 ));
 
 /*****COURSE ROUTES*****/
@@ -150,11 +153,11 @@ router.get('/courses/:id', async (req, res) => {
 router.post('/courses',
  [
     check('title')
-        .exists()
-        .withMessage('Please provide a value for "title"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "Title"'),
     check('description')
-        .exists()
-        .withMessage('Please provide a value for "description"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "Description"'),
     ], authenticateUser,
     async (req, res) => {  
         const errors = validationResult(req);
@@ -184,10 +187,10 @@ router.post('/courses',
 /***** Updates a course, returns no content STATUS: 204 *****/
 router.put('/courses/:id', [
     check('title')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "title"'),
     check('description')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "description"'),
     ], authenticateUser, (async (req, res) => {
     const errors = validationResult(req);

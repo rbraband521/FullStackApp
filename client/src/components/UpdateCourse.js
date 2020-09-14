@@ -1,14 +1,15 @@
-// CreateCourse - This component provides the "Create Course" screen by rendering a form 
-// that allows a user to create a new course. The component also renders a "Create Course"
-//  button that when clicked sends a POST request to the REST API's /api/courses route. 
-//  This component also renders a "Cancel" 
-// button that returns the user to the default route (i.e. the list of courses)
+/**UpdateCourse - This component provides the "Update Course" screen by 
+ * rendering a form that allows a user to update one of their existing courses. 
+ * The component also renders an "Update Course" button that when clicked sends a PUT 
+ * request to the REST API's /api/courses/:id route. 
+ * This component also renders a "Cancel" button that returns the user to the "Course Detail" screen. */
+
 
 import React, { Component, Fragment } from 'react';
 import Data from '../Data';
 import Form from './Form';
 
-export default class CreateCourse extends Component {
+export default class UpdateCourse extends Component {
     constructor() {
         super()
         this.data = new Data();
@@ -19,20 +20,43 @@ export default class CreateCourse extends Component {
         estimatedTime: '',
         materialsNeeded: '',
         userId: '',
-        name: '',
+        user: '',
+        // firstName: '',
+        // lastName: '',
+        courseId: '',
         errors: []
     }
-
     async componentDidMount() {
         const { context } = this.props;
-            this.setState(() => {
-                return {
-                    userId: context.authenticatedUser.Id,
-                    name: context.authenticatedUser.Name
-                }
-            })
-        }
-
+        const authUser =  this.props.context.authenticatedUser;
+        console.log(authUser.Id);
+        let { id }  = this.props.match.params;
+        context.data.getCourseId(id)
+            .then(response => {
+                if (response) {
+                this.setState({
+                    title: response.title,
+                    description: response.description,
+                    estimatedTime: response.estimatedTime,
+                    materialsNeeded: response.materialsNeeded,
+                    user: response.user,
+                    userId: response.userId,
+                    // firstName: response.user.firstName,
+                    // lastName: response.user.lastName,
+                    emailAddress: response.user.emailAddress,
+                    courseId: id
+                })
+            }
+            console.log(this.state.user.id);
+            if(!authUser || authUser.Id !== this.state.user.id){
+                this.props.history.push('/forbidden');
+            }
+            if (!response) {
+                this.props.history.push('/notfound');
+            }
+        })
+            .catch(error => console.log('Error fetching and parsing data', error));
+            }
 
     render() {
         const {
@@ -40,24 +64,24 @@ export default class CreateCourse extends Component {
             description,
             estimatedTime,
             materialsNeeded,
-            name,
+            user,
             errors
         } = this.state;
         return (
             <div className= "bounds course--detail">
-                <h1>Create Course</h1>
+                <h1>Update Course</h1>
                     <Form
                         cancel={this.cancel}
                         errors={errors}
                         submit={this.submit}
-                        submitButtonText="Create Course"
+                        submitButtonText="Update Course"
                         elements={() => (
                             <Fragment>
                                 <div>
                                     <div className="grid-66">
                                         <div className="course-header">
                                         <h4 className="course--label">Course</h4>
-                                        <p>By: {`${name}`}</p>
+                                        <p>By: {`${user.firstName} ${user.lastName}`}</p>
                                         <input
                                             id="title"
                                             name="title"
@@ -102,11 +126,7 @@ export default class CreateCourse extends Component {
                                                         type="text"
                                                         value={materialsNeeded}
                                                         onChange={this.change}
-                                                        placeholder="List materials...
-                                                        *...
-                                                        *...
-                                                        *...
-                                                        *..." >
+                                                        placeholder="Materials Needed..." >
                                                     </textarea>
                                                     </div>
                                                 </li>
@@ -135,45 +155,51 @@ export default class CreateCourse extends Component {
       submit = () => {
         const { context } = this.props;
         const { emailAddress, password } = context.authenticatedUser;
+    
+    
         const {
             title,
             description,
             estimatedTime,
             materialsNeeded,
-            userId,
+            user,
+            courseId
         } = this.state;
-    
         //New course payload
         const course = {
             title,
             description,
             estimatedTime,
             materialsNeeded,
-            userId
+            user
         };
 
-        context.data.createCourse(course, emailAddress, password)
+        context.data.updateCourse(courseId, course, emailAddress, password)
         .then( errors => {
-          console.log(errors);
+          console.log('hello');
           if (errors.length > 0) {
             this.setState({ errors });
-            //scrolls to top of screen so users can see validation errors after submitting
+          //scrolls to top of screen so users can see validation errors after submitting
             window.scrollTo(0,0);
+          } else if (errors.length === 0) {
+            this.props.history.push(`/courses/${courseId}`);
           } else {
-            this.props.history.push('/');
+              this.props.history.push('/notfound');
           }
-
+          
     
         })
-        .catch(err => {
+        .catch(err=> {
             console.log(err);
-            this.props.history.push('/');
+            this.props.history.push('/signup');
         })
     }
 
 
     cancel = () => {
-        this.props.history.push('/');
+        const currCourseId = this.state.courseId;
+        this.props.history.push(currCourseId);
     
       }
+    
 }
