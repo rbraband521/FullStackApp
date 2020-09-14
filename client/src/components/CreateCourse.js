@@ -153,6 +153,7 @@ export default class CreateCourse extends Component {
           console.log(errors);
           if (errors.length > 0) {
             this.setState({ errors });
+            //scrolls to top of screen so users can see validation errors after submitting
             window.scrollTo(0,0);
           } else {
             this.props.history.push('/');
