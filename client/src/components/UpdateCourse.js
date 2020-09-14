@@ -179,6 +179,7 @@ export default class UpdateCourse extends Component {
           console.log('hello');
           if (errors.length > 0) {
             this.setState({ errors });
+            window.scrollTo(0,0);
           } else if (errors.length === 0) {
             this.props.history.push(`/courses/${courseId}`);
           } else {

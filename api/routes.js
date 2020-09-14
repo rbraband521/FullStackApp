@@ -71,16 +71,16 @@ router.get('/users', authenticateUser, async (req, res) => {
 router.post('/users', [
     check('firstName')
         .exists({ checkNull: true, checkFalsy: true })
-        .withMessage('Please provide a value for "firstName"'),
+        .withMessage('Please provide a value for "First Name"'),
     check('lastName')
         .exists({ checkNull: true, checkFalsy: true })
-        .withMessage('Please provide a value for "lastName"'),
+        .withMessage('Please provide a value for "Last Name"'),
     check('emailAddress')
         .exists({ checkNull: true, checkFalsy: true })
-        .withMessage('Please provide a value for "emailAddress"'),
+        .withMessage('Please provide a value for "Email Address"'),
     check('password')
         .exists({ checkNull: true, checkFalsy: true })
-        .withMessage('Please provide a value for "password"'),
+        .withMessage('Please provide a value for "Password"'),
     ], asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -153,11 +153,11 @@ router.get('/courses/:id', async (req, res) => {
 router.post('/courses',
  [
     check('title')
-        .exists()
-        .withMessage('Please provide a value for "title"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "Title"'),
     check('description')
-        .exists()
-        .withMessage('Please provide a value for "description"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "Description"'),
     ], authenticateUser,
     async (req, res) => {  
         const errors = validationResult(req);
@@ -187,10 +187,10 @@ router.post('/courses',
 /***** Updates a course, returns no content STATUS: 204 *****/
 router.put('/courses/:id', [
     check('title')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "title"'),
     check('description')
-        .exists()
+        .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "description"'),
     ], authenticateUser, (async (req, res) => {
     const errors = validationResult(req);

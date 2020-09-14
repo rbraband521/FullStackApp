@@ -107,7 +107,7 @@ export default class Data {
     }
     else if (response.status === 400) {
       return response.json().then(data => {
-        console.log(data);
+        console.log(data.errors);
         return data.errors;
       });
     }
