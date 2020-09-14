@@ -6,27 +6,26 @@
 
 
 import React, { Component, Fragment } from 'react';
-import Data from '../Data';
 import Form from './Form';
 
 export default class UpdateCourse extends Component {
-    constructor() {
-        super()
-        this.data = new Data();
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            description: '',
+            estimatedTime: '',
+            materialsNeeded: '',
+            userId: '',
+            user: '',
+            // firstName: '',
+            // lastName: '',
+            courseId: '',
+            errors: []
+        }
     }
-    state = {
-        title: '',
-        description: '',
-        estimatedTime: '',
-        materialsNeeded: '',
-        userId: '',
-        user: '',
-        // firstName: '',
-        // lastName: '',
-        courseId: '',
-        errors: []
-    }
-    async componentDidMount() {
+
+    componentDidMount() {
         const { context } = this.props;
         const authUser =  this.props.context.authenticatedUser;
         console.log(authUser.Id);
@@ -34,20 +33,20 @@ export default class UpdateCourse extends Component {
         context.data.getCourseId(id)
             .then(response => {
                 if (response) {
-                this.setState({
-                    title: response.title,
-                    description: response.description,
-                    estimatedTime: response.estimatedTime,
-                    materialsNeeded: response.materialsNeeded,
-                    user: response.user,
-                    userId: response.userId,
-                    // firstName: response.user.firstName,
-                    // lastName: response.user.lastName,
-                    emailAddress: response.user.emailAddress,
-                    courseId: id
-                })
-            }
-            console.log(this.state.user.id);
+                    this.setState({
+                        title: response.title,
+                        description: response.description,
+                        estimatedTime: response.estimatedTime,
+                        materialsNeeded: response.materialsNeeded,
+                        user: response.user,
+                        userId: response.user.userId,
+                        // firstName: response.user.firstName,
+                        // lastName: response.user.lastName,
+                        emailAddress: response.user.emailAddress,
+                        courseId: id
+                    });
+                }
+            console.log(this.state.user);
             if(!authUser || authUser.Id !== this.state.user.id){
                 this.props.history.push('/forbidden');
             }
@@ -59,12 +58,12 @@ export default class UpdateCourse extends Component {
             }
 
     render() {
+        const { context } = this.props;
         const {
             title,
             description,
             estimatedTime,
             materialsNeeded,
-            user,
             errors
         } = this.state;
         return (
@@ -81,7 +80,7 @@ export default class UpdateCourse extends Component {
                                     <div className="grid-66">
                                         <div className="course-header">
                                         <h4 className="course--label">Course</h4>
-                                        <p>By: {`${user.firstName} ${user.lastName}`}</p>
+                                        <p>By: {context.authenticatedUser.Name}</p>
                                         <input
                                             id="title"
                                             name="title"
@@ -111,7 +110,7 @@ export default class UpdateCourse extends Component {
                                                             id="estimatedTime"
                                                             name="estimatedTime"
                                                             type="text"
-                                                            value={estimatedTime}
+                                                            value={estimatedTime || null}
                                                             onChange={this.change}
                                                             className="course--time--input"
                                                             placeholder="Hours" />
@@ -124,7 +123,7 @@ export default class UpdateCourse extends Component {
                                                         id="materialsNeeded"
                                                         name="materialsNeeded"
                                                         type="text"
-                                                        value={materialsNeeded}
+                                                        value={materialsNeeded || null}
                                                         onChange={this.change}
                                                         placeholder="Materials Needed..." >
                                                     </textarea>
