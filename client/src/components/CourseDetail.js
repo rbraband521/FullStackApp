@@ -54,24 +54,27 @@ export default class CourseDetail extends Component {
         let { id }  = this.props.match.params;
         context.data.getCourseId(id)
             .then(response => {
-                this.setState({
-                    title: response.title,
-                    description: response.description,
-                    estimatedTime: response.estimatedTime,
-                    materialsNeeded: response.materialsNeeded,
-                    // firstName: response.user.firstName,
-                    // lastName: response.user.lastName,
-                    emailAddress: response.user.emailAddress,
-                    courseId: id,
-                    user: response.user,
-                    authenticatedUser: context.authenticatedUser
-                }
-            )})
-            .catch(error => {
-                console.log(error);
-                this.props.history.push('/notfound');
-            });
-            }
+                if (response) {
+                    this.setState({
+                        title: response.title,
+                        description: response.description,
+                        estimatedTime: response.estimatedTime,
+                        materialsNeeded: response.materialsNeeded,
+                        // firstName: response.user.firstName,
+                        // lastName: response.user.lastName,
+                        emailAddress: response.user.emailAddress,
+                        courseId: id,
+                        user: response.user,
+                        authenticatedUser: context.authenticatedUser
+                    });
+                } else {
+                    this.props.history.push('/notfound');
+                } 
+            }).catch ((error => {
+                console.log('error');
+                this.props.history.push('/error');
+            }));
+        }   
 
     render() {
         const {
@@ -169,7 +172,7 @@ export default class CourseDetail extends Component {
             })
             .catch(err => {
                 console.log(err);
-                this.props.history.push('/forbidden');
+                this.props.history.push('/error');
             })
         } else {
             this.props.history.push('/forbidden');

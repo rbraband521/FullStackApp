@@ -20,7 +20,10 @@ class Courses extends Component {
             this.setState({courses: response})
             console.log(response);
         }) 
-        .catch((error => console.log('Error fetching and parsing data', error)));
+        .catch((error => { 
+            console.log('Error fetching and parsing data', error);
+            this.props.history.push('/error');
+        }));
     }
 
     render() {

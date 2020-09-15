@@ -160,7 +160,7 @@ router.post('/courses',
         .exists({ checkNull: true, checkFalsy: true })
         .withMessage('Please provide a value for "Description"'),
     ], authenticateUser,
-    async (req, res) => {  
+    async (req, res) => { 
         const errors = validationResult(req);
         let course = req.body;
         if (!errors.isEmpty()) {
@@ -222,6 +222,7 @@ router.put('/courses/:id', [
 
 /***** Deletes a course, returns no content STATUS: 204 *****/
 router.delete('/courses/:id', authenticateUser, asyncHandler (async(req, res) => {
+    // return res.status(500).json({});
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const errorMessages = errors.array().map(error => error.msg);

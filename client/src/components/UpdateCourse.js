@@ -51,7 +51,9 @@ export default class UpdateCourse extends Component {
                 this.props.history.push('/notfound');
             }
         })
-            .catch(error => console.log('Error fetching and parsing data', error));
+            .catch((error => {
+                this.props.history.push('/error');
+            }));
             }
 
     render() {
@@ -173,7 +175,6 @@ export default class UpdateCourse extends Component {
 
         context.data.updateCourse(courseId, course, emailAddress, password)
         .then( errors => {
-          console.log('hello');
           if (errors.length > 0) {
             this.setState({ errors });
           //scrolls to top of screen so users can see validation errors after submitting
@@ -188,7 +189,7 @@ export default class UpdateCourse extends Component {
         })
         .catch(err=> {
             console.log(err);
-            this.props.history.push('/signup');
+            this.props.history.push('/error');
         })
     }
 
