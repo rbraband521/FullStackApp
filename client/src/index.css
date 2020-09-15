@@ -282,7 +282,7 @@ h1 {
 
 /* line 61, ../sass/global.sass */
 a {
-  color: #7c689b;
+  color: #f2f0f5;
   cursor: pointer;
   text-decoration: none;
   -webkit-transition: color 0.2s;
@@ -679,7 +679,7 @@ input:focus {
 
 /* line 507, ../sass/global.sass */
 .button {
-  background: #7c689b;
+  background: #8fbd8d;
   color: #fff;
   font-family: "Work Sans", sans-serif;
   font-size: 18px;
@@ -696,20 +696,21 @@ input:focus {
   -o-transition: background 0.2s;
   transition: background 0.2s;
 }
+
 /* line 520, ../sass/global.sass */
 .button:focus {
   outline: none;
 }
 /* line 522, ../sass/global.sass */
 .button:not(.button-secondary):hover {
-  background: #63537d;
+  background: #22502d;
 }
 
 /* line 525, ../sass/global.sass */
 .button-secondary {
-  color: #7c689b;
+  color: #536acf;
   background: none;
-  box-shadow: 0 0 0 2px #7c689b inset;
+  box-shadow: 0 0 0 2px #8fbd8d inset;
   -webkit-transition: box-shadow 0.2s, color 0.2s;
   -moz-transition: box-shadow 0.2s, color 0.2s;
   -ms-transition: box-shadow 0.2s, color 0.2s;
@@ -718,7 +719,7 @@ input:focus {
 }
 /* line 530, ../sass/global.sass */
 .button-secondary:hover {
-  color: #63537d;
+  color: #040292;
   box-shadow: 0 0 0 2px #63537d inset;
 }
 
