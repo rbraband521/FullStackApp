@@ -18,13 +18,12 @@ export default class UpdateCourse extends Component {
             materialsNeeded: '',
             userId: '',
             user: '',
-            // firstName: '',
-            // lastName: '',
             courseId: '',
             errors: []
         }
     }
-
+    //Updates the state based on the course Id returned from getCourseId using context
+    //This allows the course information to be shown in the form before editing
     async componentDidMount() {
         const { context } = this.props;
         const authUser =  this.props.context.authenticatedUser;
@@ -43,18 +42,22 @@ export default class UpdateCourse extends Component {
                         courseId: id
                     });
                 }
-            console.log(response);
+                //directs to FORBIDDEN route if the signed in users id does not match the user id of the course
+                //OR if there is no authorized user
             if(!authUser || authUser.Id !== this.state.user.id){
                 this.props.history.push('/forbidden');
-            }
+            } //if the API returns nothing then the Not Found error page in rendered
             if (!response) {
                 this.props.history.push('/notfound');
             }
-        })
+        }) //If the server encounters an error 
             .catch((error => {
                 this.props.history.push('/error');
             }));
             }
+
+    /*returns the form with the course information filled in. EstimatedTime and MaterialsNeeded both
+    have an OR statement because those two fields can be left blank */
 
     render() {
         const { context } = this.props;
@@ -139,7 +142,7 @@ export default class UpdateCourse extends Component {
             </div>
         )
     }
-
+    //change function to handle each input based on the name attribute
     change = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -154,8 +157,6 @@ export default class UpdateCourse extends Component {
       submit = () => {
         const { context } = this.props;
         const { emailAddress, password } = context.authenticatedUser;
-    
-    
         const {
             title,
             description,
@@ -172,7 +173,8 @@ export default class UpdateCourse extends Component {
             materialsNeeded,
             user
         };
-
+/*updateCourse function is called using context. Validation errors are displayed if needed, otherwise 
+the course is updated and the user is directed to the newly updated course page.  */
         context.data.updateCourse(courseId, course, emailAddress, password)
         .then( errors => {
           if (errors.length > 0) {
@@ -184,16 +186,15 @@ export default class UpdateCourse extends Component {
           } else {
               this.props.history.push('/notfound');
           }
-          
-    
         })
+        //500 error handling
         .catch(err=> {
             console.log(err);
             this.props.history.push('/error');
         })
     }
 
-
+    //cancel button will return the user to the courseDetail screen that corresponds to the course Id
     cancel = () => {
         const currCourseId = this.state.courseId;
         this.props.history.push(currCourseId);

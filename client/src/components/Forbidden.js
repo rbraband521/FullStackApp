@@ -1,3 +1,6 @@
+/**This component renders a message letting the user know an unexpected error form the server
+ * has occurred. It also renders a button to return to the home screen*/
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -12,16 +15,3 @@ export default () => {
       </div>
     )
   }
-
-// import React from 'react';
-// import {Link} from 'react-router-dom';
-
-// export default () => (
-//   <div className="bounds">
-//     <h1>Not Found</h1>
-//     <p>Sorry! We couldn't find the course you're looking for.</p>
-//     <div className="button">
-//       <Link to='/'>Home</Link>
-//     </div>
-//   </div>
-// );

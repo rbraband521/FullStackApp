@@ -18,7 +18,7 @@ export default class UserSignIn extends Component {
           password,
           errors,
         } = this.state;
-
+        //user sign in form, also renders a sign up link for non-users
         return (
             <div className="bounds">
                 <div className="grid-33 centered signin">
@@ -53,6 +53,8 @@ export default class UserSignIn extends Component {
         </div>
     );
   }
+  /*The change function is called in the form above whenever an input is changed
+  This controls each element based on the name attribute*/
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -66,6 +68,7 @@ export default class UserSignIn extends Component {
 
   submit = () => {
     const { context } = this.props;
+    //stores the previous location so the user can be redirected if they were originally redirected to the sign in page
     const { from } = this.props.location.state || { from: { pathname: '/courses' } };
     const { emailAddress, password } = this.state;
     context.actions.signIn(emailAddress, password)
@@ -75,16 +78,17 @@ export default class UserSignIn extends Component {
           return { errors: [ 'Sign-in was unsuccessful' ] };
         });
         } else {
+          //redirects user to the previous location
           this.props.history.push(from);
           console.log(`SUCCESS! ${emailAddress} is now signed in!`);
       }
-    })
+    }) //500 status handling
       .catch( err => {
         console.log(err);
         this.props.history.push('/error');
       })
   }
-
+//cancel button will return you to the home page
   cancel = () => {
     this.props.history.push('/');
   }

@@ -1,3 +1,8 @@
+/*UserSignUp - This component provides the "Sign Up" screen by rendering a form that allows a 
+user to sign up by creating a new account. The component also renders a "Sign Up" 
+button that when clicked sends a POST request to the REST API's /api/users route and signs in the user. 
+This component also renders a "Cancel" button that returns the user to the default route (i.e. the list of courses). */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
@@ -91,9 +96,6 @@ export default class UserSignUp extends Component {
 
   submit = () => {
     const { context } = this.props;
-
-
-
     const {
         firstName,
         lastName,
@@ -108,6 +110,8 @@ export default class UserSignUp extends Component {
         emailAddress,
         password
     };
+    //checks if the password and confirm password inputs are the same. If they are createUser is called using context
+    //subsequently the user is signed in
     if(confirmPassword === password) {
       context.data.createUser(user)
         .then( errors => {
@@ -128,7 +132,7 @@ export default class UserSignUp extends Component {
           this.props.history.push('/error'); // push to history stack
           });
       } else {
-        console.log("test");
+        //when the passwords do not match, this error is displayed
         this.setState({errors: "Sorry, your passwords do not match"});
       }
     }

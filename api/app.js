@@ -10,6 +10,7 @@ const routes = require('./routes');
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
+//Cross Origin resource sharing. REST API is on localhost:5000, React on 3000, this allows communication between the two
 const cors = require('cors');
 
 // create the Express app

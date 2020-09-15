@@ -38,7 +38,7 @@ export class Provider extends Component {
     );
   }
 
-  
+  /**********SIGN IN FUNCTION*********/
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
@@ -56,7 +56,7 @@ export class Provider extends Component {
     console.log(user);
     return user;
   }
-
+/**********SIGN OUT FUNCTION*********/
   signOut = () => {
     this.setState(() => {
       return {

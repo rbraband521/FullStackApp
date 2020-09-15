@@ -8,6 +8,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+//Markdown is required for listing the materials needed
 const ReactMarkdown = require('react-markdown');
 
 export default class CourseDetail extends Component {
@@ -18,37 +19,14 @@ export default class CourseDetail extends Component {
                 description: '',
                 estimatedTime: '',
                 materialsNeeed: '',
-                // firstName: '',
-                // lastName: '',
                 courseId: '',
                 user: '',
                 authenticatedUser: ''
             };
         }
-
-    //function to retrieve courses and store then in an array
-    // getCourseId() {
-    //     let { id }  = this.props.match.params;
-    //     console.log(id);
-    //      axios.get(`http://localhost:5000/api/courses/${id}`)
-    //         .then(response => {this.setState({
-    //             title: response.data.title,
-    //             description: response.data.description,
-    //             estimatedTime: response.data.estimatedTime,
-    //             materialsNeeded: response.data.materialsNeeded,
-    //             firstName: response.data.user.firstName,
-    //             lastName: response.data.user.lastName,
-    //             emailAddress: response.data.user.emailAddress,
-    //             courseId: id
-    //         })})
-    //         .catch(error => console.log('Error fetching and parsing data', error));
-    //         }
-            
-
-            
-    // componentDidMount() {
-    //     this.getCourseId();
-    // }
+    /*the state is set based on the response from the getCourseId function which is called 
+    using context. If no response is returned the user is directed to the Not Found Error page
+    There is also a catch for 500 server error codes */
     async componentDidMount() {
         const { context } = this.props;
         let { id }  = this.props.match.params;
@@ -60,8 +38,6 @@ export default class CourseDetail extends Component {
                         description: response.description,
                         estimatedTime: response.estimatedTime,
                         materialsNeeded: response.materialsNeeded,
-                        // firstName: response.user.firstName,
-                        // lastName: response.user.lastName,
                         emailAddress: response.user.emailAddress,
                         courseId: id,
                         user: response.user,
@@ -80,14 +56,11 @@ export default class CourseDetail extends Component {
         const {
             title,
             description,
-            // firstName,
-            // lastName,
             estimatedTime,
             materialsNeeded,
             courseId,
             user,
             authenticatedUser
-            // user
         } = this.state
     return (
         <div>
@@ -95,6 +68,8 @@ export default class CourseDetail extends Component {
                 <div className="bounds">
                     <div className="grid-100">
                     <span>
+                    {/*If there is an authenticatedUser ,provided through context, AND if the email address matches
+                    the current user email address then the update course and delete course buttons are returned*/}
                         {authenticatedUser ? (authenticatedUser.emailAddress === user.emailAddress ? (
                             <Fragment>
                                 <Link 
@@ -151,7 +126,10 @@ export default class CourseDetail extends Component {
             </div>
         )
     }
-
+ /************DELETE COURSE FUNCTION*************/
+ /*This function is called above in the return statement if the delete button is available to the user
+ There is also a failsafe incase a user tries to enter a delete route in the URL for a course they don't
+ have access to, it will direct them to the forbidden error page*/
     deleteCourse = () => {
         const { context } = this.props;
         const courseId = this.state.courseId;
@@ -180,5 +158,4 @@ export default class CourseDetail extends Component {
 
     }
 }
-// export default CourseDetail;
 

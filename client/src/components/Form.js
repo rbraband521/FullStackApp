@@ -8,19 +8,17 @@ export default (props) => {
     submitButtonText,
     elements,
   } = props;
-
+//SUBMIT function
   function handleSubmit(event) {
     event.preventDefault();
     submit();
 }
-    
-
-
+//CANCEL function 
   function handleCancel(event) {
     event.preventDefault();
     cancel();
   }
-
+//returns the submit and cancel button and calls the functions respectively when needed
   return (
     <div>
       <ErrorsDisplay errors={errors} />
@@ -34,7 +32,8 @@ export default (props) => {
     </div>
   );
 }
-
+/**********VALIDATION ERROR HANDLING**********/
+/* This function will display SQL validation errors on every form */
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
 

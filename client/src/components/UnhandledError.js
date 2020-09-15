@@ -1,3 +1,6 @@
+/*This component renders an Unexpected Error page when the server encounters an error
+The path will be /error and will only render when there is a 500 status code error from the API */
+
 import React from 'react';
 import {Link} from 'react-router-dom';
 

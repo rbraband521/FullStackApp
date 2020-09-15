@@ -8,6 +8,7 @@ import React, { Component, Fragment } from 'react';
 import Data from '../Data';
 import Form from './Form';
 
+//new Data is needed for the new course payload
 export default class CreateCourse extends Component {
     constructor() {
         super()
@@ -22,7 +23,8 @@ export default class CreateCourse extends Component {
         name: '',
         errors: []
     }
-
+//using context to store the authenticated user in state
+//The user information is stored with each created course
     async componentDidMount() {
         const { context } = this.props;
             this.setState(() => {
@@ -33,6 +35,8 @@ export default class CreateCourse extends Component {
             })
         }
 
+        /*The form is created with each input having an onChange attribute which calls
+        the change function*/
 
     render() {
         const {
@@ -120,7 +124,7 @@ export default class CreateCourse extends Component {
             </div>
         )
     }
-
+//name and value are updated when the change function is called in the form above
     change = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -151,7 +155,8 @@ export default class CreateCourse extends Component {
             materialsNeeded,
             userId
         };
-
+        /*createCourse is called through context and will create each course with the new course payload from above
+        after each property's state has been updated above that */
         context.data.createCourse(course, emailAddress, password)
         .then( errors => {
           console.log(errors);
@@ -162,16 +167,15 @@ export default class CreateCourse extends Component {
           } else {
             this.props.history.push('/');
           }
-
-    
         })
+        //500 error handling
         .catch(err => {
             console.log(err);
             this.props.history.push('/error');
         })
     }
 
-
+ //CANCEL button directs users to home screen
     cancel = () => {
         this.props.history.push('/');
     

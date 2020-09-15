@@ -12,7 +12,7 @@ class Courses extends Component {
     state = {
         courses: []
     };
-
+    //the getCourses function is called with context and sets the courses state to the response
     async componentDidMount() {
         const { context } = this.props;
         console.log(context);
@@ -22,10 +22,12 @@ class Courses extends Component {
         }) 
         .catch((error => { 
             console.log('Error fetching and parsing data', error);
+            //catches any 500 status error codes and directs too UnhandledError component
             this.props.history.push('/error');
         }));
     }
-
+    //************Creates each course module with .map, IF the return is greater than zero
+    //************If no courses are returned, the user is directed to the Not Found Error page
     render() {
     let courses;
     console.log(this.state.courses);

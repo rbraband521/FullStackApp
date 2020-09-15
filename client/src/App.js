@@ -7,7 +7,7 @@ import {
 import './App.css';
 
 
-//componenet import
+//component import
 import withContext from './Context';
 import PrivateRoute from './PrivateRoute';
 
@@ -22,7 +22,7 @@ import UserSignUp from './components/UserSignUp';
 import NotFound from './components/NotFound';
 import Forbidden from './components/Forbidden';
 import UnhandledError from './components/UnhandledError';
-
+//Adding context to stateful components
 const HeaderWithContext = withContext(Header); 
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
@@ -34,7 +34,7 @@ const UserSignOutWithContext = withContext(UserSignOut);
 
 
 
-
+//Route handling: if no other routes match, NotFound will be returned
 export default () => (
   <BrowserRouter>
     <div>
