@@ -25,12 +25,12 @@ export default class UpdateCourse extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const { context } = this.props;
         const authUser =  this.props.context.authenticatedUser;
-        console.log(authUser.Id);
+        console.log();
         let { id }  = this.props.match.params;
-        context.data.getCourseId(id)
+        await context.data.getCourseId(id)
             .then(response => {
                 if (response) {
                     this.setState({
@@ -40,13 +40,10 @@ export default class UpdateCourse extends Component {
                         materialsNeeded: response.materialsNeeded,
                         user: response.user,
                         userId: response.user.userId,
-                        // firstName: response.user.firstName,
-                        // lastName: response.user.lastName,
-                        emailAddress: response.user.emailAddress,
                         courseId: id
                     });
                 }
-            console.log(this.state.user);
+            console.log(response);
             if(!authUser || authUser.Id !== this.state.user.id){
                 this.props.history.push('/forbidden');
             }
@@ -66,6 +63,7 @@ export default class UpdateCourse extends Component {
             materialsNeeded,
             errors
         } = this.state;
+        console.log(title);
         return (
             <div className= "bounds course--detail">
                 <h1>Update Course</h1>
@@ -110,7 +108,7 @@ export default class UpdateCourse extends Component {
                                                             id="estimatedTime"
                                                             name="estimatedTime"
                                                             type="text"
-                                                            value={estimatedTime || null}
+                                                            value={estimatedTime || ''}
                                                             onChange={this.change}
                                                             className="course--time--input"
                                                             placeholder="Hours" />
@@ -123,7 +121,7 @@ export default class UpdateCourse extends Component {
                                                         id="materialsNeeded"
                                                         name="materialsNeeded"
                                                         type="text"
-                                                        value={materialsNeeded || null}
+                                                        value={materialsNeeded || ''}
                                                         onChange={this.change}
                                                         placeholder="Materials Needed..." >
                                                     </textarea>
