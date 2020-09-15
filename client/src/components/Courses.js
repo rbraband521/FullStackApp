@@ -5,29 +5,13 @@
  *  This component also renders a link to the "Create Course" screen. */
 
 import React, { Component } from 'react';
-// import axios from 'axios';
+import NotFound from './NotFound';
 
 
 class Courses extends Component {
-    // constructor(props) {
-    //     super(props);
-    //         this.
-            state = {
-                courses: []
-            };
-        // }
-
-    // function to retrieve courses and store then in an array
-    // getCourses() {
-    //      axios.get('http://localhost:5000/api/courses')
-    //         .then(response => {this.setState({courses: response.data})})
-    //         .catch(error => console.log('Error fetching and parsing data', error));
-    //         }
-
-            
-    // componentDidMount() {
-    //     this.getCourses();
-    // }
+    state = {
+        courses: []
+    };
 
     async componentDidMount() {
         const { context } = this.props;
@@ -51,6 +35,8 @@ class Courses extends Component {
                 </a>
             </div>
         );
+    } else {
+        courses = <NotFound />
     }
         return (
             <div className="bounds">
@@ -66,30 +52,3 @@ class Courses extends Component {
     }
 }
 export default Courses;
-
-
-// import React, { useState, useEffect } from 'react';
-
-// function Courses() {
-//     const [data, setData] = useState ([]);
-
-//     useEffect(() => { 
-//         axios('http://localhost:5000/api/courses')
-//           .then(response => setData(response.data.data))
-//           .catch(error => console.log('Error fetching and parsing data', error))
-//       }, []);
-
-//       console.log(setData);
-//     return (
-//         <>
-//         <div className="bounds">
-//           <div className="grid-33">
-//             <h1 className="main-title">Courses</h1>
-//           </div>
-//         </div>
-//         <div className="main-content"></div>
-//       </>
-//     );
-// }
-
-// export default Courses;
