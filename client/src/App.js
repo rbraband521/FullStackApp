@@ -2,8 +2,7 @@ import React from 'react';
 import { 
   Switch,
   BrowserRouter,
-  Route,
-  Redirect } from 'react-router-dom';
+  Route } from 'react-router-dom';
 import './App.css';
 
 
@@ -41,8 +40,7 @@ export default () => (
       <HeaderWithContext />
       
       <Switch>
-        <Route exact path= '/' render={ () => <Redirect to ='/courses' />} />
-        <Route exact path= '/courses' component={CoursesWithContext} />
+        <Route exact path= '/' component={CoursesWithContext} />
         <PrivateRoute path= '/courses/create' component={CreateCourseWithContext} />
         <PrivateRoute path='/courses/:id/update' component={UpdateCourseWithContext} />
         <Route path= '/courses/:id' component={CourseDetailWithContext} />

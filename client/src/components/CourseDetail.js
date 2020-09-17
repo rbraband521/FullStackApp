@@ -103,7 +103,7 @@ export default class CourseDetail extends Component {
                             <p>By: {user.firstName} {user.lastName}</p>
                         </div>
                         <div className="course--description">
-                            {description}
+                            <ReactMarkdown source={description} />
                         </div>
                     </div>
                     <div className="grid-25 grid-right">
@@ -115,9 +115,7 @@ export default class CourseDetail extends Component {
                                 </li>
                                 <li className="course--stats--list--item">
                                     <h4>Materials Needed</h4>
-                                    {/* <ul> */}
                                         <ReactMarkdown source={materialsNeeded} />
-                                    {/* </ul> */}
                                 </li>
                             </ul>
                         </div>
