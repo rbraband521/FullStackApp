@@ -222,6 +222,7 @@ router.put('/courses/:id', [
 
 /***** Deletes a course, returns no content STATUS: 204 *****/
 router.delete('/courses/:id', authenticateUser, asyncHandler (async(req, res) => {
+    //For testing purposes
     // return res.status(500).json({});
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
