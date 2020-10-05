@@ -13,6 +13,10 @@
   "devDependencies": {
     "nodemon": "^1.18.3"
   },
+  "engines": {
+    "node": "12.18.1",
+    "npm": "6.14.5"
+  },
   "dependencies": {
     "basic-auth": "^2.0.1",
     "bcryptjs": "^2.4.3",
