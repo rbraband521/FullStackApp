@@ -9,6 +9,6 @@
   },
   "production": {
     "dialect": "sqlite",
-    "storage": "postgres"
+    "storage": "fsjstd-restapi.db"
   }
 }
