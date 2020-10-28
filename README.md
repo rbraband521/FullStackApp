@@ -1,7 +1,10 @@
-# Course Directory 
-## A Full Stack React App with REST API
+# Course Directory  ## A Full Stack React App with REST API
 
-This repo houses the front and back end code for my course-directory project. This project can be run locally. In order to deploy this project I had to create separate repos for the API and the React App. Here are the links to those repos if you'd like to look around those instead:
+This repo houses the front and back end code for my course-directory project. This project can be run locally. The application is a course-directory for a school which allows users to create an account. Subsequently, users can Create, Read, Update and Delete courses.
+
+*****
+
+In order to deploy this project I had to create separate repos for the API and the React App. Here are the links to those repos if you'd like to look around those instead:
 
 #### API deployed on Heroku
 <https://github.com/rbraband521/course-directory-api-heroku>
@@ -32,3 +35,4 @@ This repo houses the front and back end code for my course-directory project. Th
       `npm start`
 
 If a new window doesn't automatically open, open a browser window and navigate to <http://localhost:5000>
+
